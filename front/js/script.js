@@ -30,12 +30,16 @@
 
 const ENDPOINT = "http://localhost:3000/api/products/";
 
+
+//On récupère tous les produits de l'API
 const getAllProducts = async (endpoint = ENDPOINT) => {
     let data = await (await fetch(endpoint)).json();
     console.log("nos produits: ", data);
     return data;
 }
 
+
+//On affiche les produits de l'API dans la balise avec l'id "items"
 const displayProducts = (kanapes) => {
     let products = document.getElementById("items");
     kanapes.forEach(kanape => {
@@ -52,6 +56,8 @@ const displayProducts = (kanapes) => {
     })
 }
 
+
+//Affichage des informations sur la page d'accueil
 const loadHomePage = async () => {
     displayProducts(await getAllProducts());
 }
