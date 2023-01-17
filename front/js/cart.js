@@ -183,7 +183,7 @@ displayProducts();
 /* Validation du formulaire */
 
 const validName = (inputName) => {
-    let nameRegExp = new RegExp("^[a-z .'-]+$", "i");
+    let nameRegExp = new RegExp("^[a-zA-Z]{2,}[a-z .'-]+$", "i");
     let testName = nameRegExp.test(inputName.value);
     let message = inputName.nextElementSibling;
     if (!testName) {
@@ -227,24 +227,24 @@ let form = document.querySelector(".cart__order__form");
 
 const validation = () => {
   try {
-    form.email.addEventListener("change", function () {
-      validEmail(this);
+    form.email.addEventListener("change", function (e) {
+      validEmail(e.target);
     });
-    form.firstName.addEventListener("change", function () {
-      validName(this);
+    form.firstName.addEventListener("change", function (e) {
+      validName(e.target);
     });
-    form.lastName.addEventListener("change", function () {
-      validName(this);
+    form.lastName.addEventListener("change", function (e) {
+      validName(e.target);
     });
-    form.address.addEventListener("change", function () {
-      validAddress(this);
+    form.address.addEventListener("change", function (e) {
+      validAddress(e.target);
     });
-    form.city.addEventListener("change", function () {
-      validName(this);
+    form.city.addEventListener("change", function (e) {
+      validName(e.target);
     });
     commander();
   } catch (error) {
-    console.log("Page confirmation");
+    console.log(error);
   }
 };
 validation();
@@ -254,7 +254,7 @@ const postApi = (command) => {
   fetch("http://localhost:3000/api/products/order", {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      'Accept': "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(command),
@@ -274,7 +274,7 @@ const postApi = (command) => {
 
 
 //Validation avec Bouton Commander
-const commander = () => {
+function commander () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log(form.firstName.value);
