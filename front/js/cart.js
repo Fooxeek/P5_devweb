@@ -183,7 +183,7 @@ displayProducts();
 /* Validation du formulaire */
 
 const validName = (inputName) => {
-    let nameRegExp = new RegExp("^[a-zA-Z]{2,}[a-z .'-]+$", "i");
+    let nameRegExp = new RegExp("^[a-zA-Z]{2,}[a-z .'-]+[a-zA-Z]{2,}$", "i");
     let testName = nameRegExp.test(inputName.value);
     let message = inputName.nextElementSibling;
     if (!testName) {
@@ -196,11 +196,11 @@ const validName = (inputName) => {
 }
 
 const validAddress = (inputAddress) => {
-    let addressRegExp = new RegExp("^[a-z0-9 .'-]+$", "i");
+    let addressRegExp = new RegExp("^[0-9a-zA-Z]{2,}[a-z0-9 .'-]+[a-zA-Z]{2,}$", "i");
     let testAddress = addressRegExp.test(inputAddress.value);
     let message = inputAddress.nextElementSibling;
     if (!testAddress) {
-      message.textContent = "Renseignement Non Valide";
+      message.textContent = "Adresse Non Valide";
       return false;
     } else {
       message.textContent = "";
@@ -209,11 +209,11 @@ const validAddress = (inputAddress) => {
 }
 
 const validEmail = (inputEmail) => {
-    let emailRegExp = new RegExp( "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$", "g");
+    let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-zA-Z]{2,}$", "g");
     let testEmail = emailRegExp.test(inputEmail.value);
     let message = inputEmail.nextElementSibling;
     if (!testEmail) {
-      message.textContent = "Adresse Non Valide";
+      message.textContent = "Mail Non Valide";
       return false;
     } else {
       message.textContent = "";
