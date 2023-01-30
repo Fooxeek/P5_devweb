@@ -1,3 +1,4 @@
+//On récupère l'id du canape correspondant dans le lien
 const idProduct = new URL(window.location.href).searchParams.get("id");
 
 const ENDPOINT = "http://localhost:3000/api/products/";
@@ -13,18 +14,24 @@ const getInfoProduct = async (endpoint = ENDPOINT) => {
 
 //fonction qui injecte dans l'HTML les éléments du produit
 const elementKanape = (infoCanape) => {
+    //On récupére les élements via leur class / Id
     let canape_image = document.getElementsByClassName("item__img");
     let canape_title = document.getElementById("title");
     let canape_price = document.getElementById("price");
     let canape_description = document.getElementById("description");
 
+    //On remplace dans le code HTML
     canape_title.innerHTML+=infoCanape.name;
     canape_price.innerHTML+=infoCanape.price;
     canape_description.innerHTML+=infoCanape.description;
 
+    //On initialise une variable text qui contiendra les informations de nos images
     let infoImage = `<img src=${infoCanape.imageUrl} alt=${infoCanape.altText}></img>`;
+
+    //On précise bien l'index [0] car c'est un selecteur class et non Id donc stocké dans un Array
     canape_image[0].innerHTML=infoImage;
 
+    //On initalise la constante qu'on utilisera pour stocker les couleurs de nos canapés
     let canape_colors = infoCanape.colors;
     let textColor = "";
 
@@ -32,6 +39,7 @@ const elementKanape = (infoCanape) => {
         textColor = textColor + ` <option value="${canape_colors}">${canape_colors}</option>`
     })
 
+    //On remplace les couleurs dans le menu <option> du HTML
     let colorChoice = document.getElementById("colors");
     colorChoice.innerHTML = textColor;
 }
@@ -61,11 +69,14 @@ const findColor = (Array, value, id) => {
 
 //Fonction qui ajoute dans le panier en fonction de la quantité le produit et sa couleur
 const addCart = () => {
+
+    //On définie la fonction d'ajout au panier qui répond au 'click' utilisateur sur le bouton 'Ajouter au panier'
     let addToCart = document.getElementById("addToCart");
     addToCart.addEventListener('click', function () {
     
         let name = document.getElementById('title').textContent;
-    
+        
+        //On définit le format de l'objet qu'on souhaite avoir dans le panier
         let canape = {
             id: idProduct,
             color: colors.value,
@@ -78,9 +89,10 @@ const addCart = () => {
         }else {
             console.log(canape);
         }
-    
+        
+        //Condition, si la quantité est comprise entre 1 et 100 on ajoute le produit au panier ou alors on incrémente la quantité
         if (quantity.value >= 1 && quantity.value <= 100) {
-     
+            //si il y'a déjà un panier dans le local storage
             if (localStorage.getItem('panier')) {
                 panierStorage = JSON.parse(localStorage.getItem('panier'));
                 if (findItem(panierStorage, canape.id)) {
