@@ -1,3 +1,4 @@
+//page qui donne le numéro de commande
 function idPage() {
     let url = new URL(window.location.href);
     let idArticle = url.searchParams.get("orderId");
