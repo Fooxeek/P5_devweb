@@ -9,6 +9,7 @@
   "author": "Logan",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.16.4",
     "uuid": "^3.3.2"

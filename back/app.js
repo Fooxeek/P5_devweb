@@ -1,38 +1,43 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 
 const productRoutes = require("./routes/product");
 
 const app = express();
 
-app.use((req, res, next) => {
-  // Define a list of origins you want to allow
-  const allowedOrigins = ["https://kanap.loganben.com"];
-  const origin = req.headers.origin;
+// CORS configuration
+const allowedOrigins = ["https://kanap.loganben.com", "http://127.0.0.1:5500"]; // Add other allowed origins as needed
 
-  // Check if the origin is in your allowedOrigins list
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl requests)
+      if (!origin) return callback(null, true);
 
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true); // Allow credentials
-  next();
-});
+      // Check if the origin is in the list of allowed origins
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  })
+);
 
+// Static directories
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(express.static("images"));
 
+// Body parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// API routes
 app.use("/api/products", productRoutes);
 
+// Export the app
 module.exports = app;
