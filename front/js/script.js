@@ -1,4 +1,4 @@
-const ENDPOINT = "http://localhost:3010/api/products/";
+const ENDPOINT = "http://127.0.0.1:3010/api/products/";
 
 //On récupère tous les produits de l'API
 const getAllProducts = async (endpoint = ENDPOINT) => {
