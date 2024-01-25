@@ -118,7 +118,7 @@ const displayProducts = () => {
   } else {
     //Sinon pour tous les élements du panier
     for (let i = 0; i < cart.length; i++) {
-      fetch("http://127.0.0.1:3000/api/products/" + cart[i].id)
+      fetch("https://127.0.0.1:3000/api/products/" + cart[i].id)
         .then((canape) => {
           return canape.json();
         })
@@ -301,7 +301,7 @@ validation();
 //Fonction pour envoyer la requete post avec les infos contacts à L'API
 const postApi = (command) => {
   //on fetch l'api vers la page des commandes pour envoyer le formulaire et la commande
-  fetch("http://127.0.0.1:3000/api/products/order", {
+  fetch("https://127.0.0.1:3000/api/products/order", {
     method: "POST",
     headers: {
       Accept: "application/json",
