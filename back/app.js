@@ -16,10 +16,9 @@ app.use(
       if (!origin) return callback(null, true);
 
       // Check if the origin is in the list of allowed origins
-      if (allowedOrigins.indexOf(origin) === -1) {
+      if (!allowedOrigins.includes(origin)) {
         var msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
+          "The CORS policy for this site does not allow access from the specified Origin.";
         return callback(new Error(msg), false);
       }
       return callback(null, true);
@@ -27,6 +26,16 @@ app.use(
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );
+
+// Handle OPTIONS requests for preflight
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Private-Network", "true");
+    res.end();
+  } else {
+    next();
+  }
+});
 
 // Static directories
 app.use("/images", express.static(path.join(__dirname, "images")));
