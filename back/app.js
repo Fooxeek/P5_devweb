@@ -7,7 +7,10 @@ const productRoutes = require("./routes/product");
 const app = express();
 
 // CORS configuration
-const allowedOrigins = ["https://kanap.loganben.com", "http://127.0.0.1:5500"]; // Add other allowed origins as needed
+const allowedOrigins = [
+  "https://kanap.loganben.com",
+  "http://seckanap.loganben.com:5500",
+]; // Add other allowed origins as needed
 
 app.use(
   cors({

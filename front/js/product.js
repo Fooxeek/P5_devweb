@@ -1,7 +1,7 @@
 //On récupère l'id du canape correspondant dans le lien
 const idProduct = new URL(window.location.href).searchParams.get("id");
 
-const ENDPOINT = "http://127.0.0.1:3010/api/products/";
+const ENDPOINT = "http://seckanap.loganben.com:3010/api/products/";
 
 //fonction qui récupère le produit souhaité
 const getInfoProduct = async (endpoint = ENDPOINT) => {

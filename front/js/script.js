@@ -1,4 +1,4 @@
-const ENDPOINT = "http://127.0.0.1:3010/api/products/";
+const ENDPOINT = "http://seckanap.loganben.com:3010/api/products/";
 
 //On récupère tous les produits de l'API
 const getAllProducts = async (endpoint = ENDPOINT) => {
